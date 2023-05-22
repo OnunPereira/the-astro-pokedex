@@ -1,63 +1,113 @@
 ---
 export interface Props {
-	title: string;
-	body: string;
-	href: string;
+  image: string;
+  title: string;
+  stats: {
+    base_stat: number;
+    effort: number;
+    stat: {
+      name:
+        | "hp"
+        | "attack"
+        | "defense"
+        | "speed"
+        | "special-attack"
+        | "special-defense";
+
+      url: string;
+    };
+  }[];
+  href: string;
 }
 
-const { href, title, body } = Astro.props;
+const STAT_DICTIONARY = {
+  hp: "HP",
+  attack: "Attack",
+  "special-attack": "Special Attack",
+  defense: "Defense",
+  "special-defense": "Special Defense",
+  speed: "Speed",
+};
+
+const { href, image, title, stats } = Astro.props;
 ---
 
 <li class="link-card">
-	<a href={href}>
-		<h2>
-			{title}
-			<span>&rarr;</span>
-		</h2>
-		<p>
-			{body}
-		</p>
-	</a>
+  <a href={href}>
+    <img src={image} width="96px" height="96px" />
+    <h2>
+      {title}
+    </h2>
+    <div class="stat-list">
+      {
+        stats.map((stat) => (
+          <p>
+            <strong>{STAT_DICTIONARY[stat.stat.name]}</strong> {stat.base_stat}
+          </p>
+        ))
+      }
+    </div>
+  </a>
 </li>
-<style>
-	.link-card {
-		list-style: none;
-		display: flex;
-		padding: 0.25rem;
-		background-color: white;
-		background-image: none;
-		background-size: 400%;
-		border-radius: 0.6rem;
-		background-position: 100%;
-		transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-	}
 
-	.link-card > a {
-		width: 100%;
-		text-decoration: none;
-		line-height: 1.4;
-		padding: 1rem 1.3rem;
-		border-radius: 0.35rem;
-		color: #111;
-		background-color: white;
-		opacity: 0.8;
-	}
-	h2 {
-		margin: 0;
-		font-size: 1.25rem;
-		transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-	}
-	p {
-		margin-top: 0.5rem;
-		margin-bottom: 0;
-		color: #444;
-	}
-	.link-card:is(:hover, :focus-within) {
-		background-position: 0;
-		background-image: var(--accent-gradient);
-	}
-	.link-card:is(:hover, :focus-within) h2 {
-		color: rgb(var(--accent));
-	}
+<style>
+  .link-card {
+    list-style: none;
+    display: flex;
+    padding: 0.25rem;
+    background-color: white;
+    background-image: none;
+    background-size: 400%;
+    border-radius: 0.6rem;
+    border: 3px solid black;
+    background-position: 100%;
+    transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  }
+
+  .link-card > a {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    text-decoration: none;
+    line-height: 1.4;
+    padding: 1rem 1.3rem;
+    border-radius: 0.35rem;
+    color: #111;
+    background-color: white;
+    opacity: 0.8;
+  }
+
+  .stat-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  .stat-list strong {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    text-transform: capitalize;
+  }
+  p {
+    margin: 0;
+    color: #444;
+  }
+  .link-card:is(:hover, :focus-within) {
+    background-position: 0;
+    background-image: var(--accent-gradient);
+  }
+  .link-card:is(:hover, :focus-within) h2 {
+    color: rgb(var(--accent));
+  }
 </style>

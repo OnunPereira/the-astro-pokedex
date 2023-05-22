@@ -1,4 +1,5 @@
 ---
+import Card from "../components/Card.astro";
 import Layout from "../layouts/Layout.astro";
 
 const response = await fetch("https://pokeapi.co/api/v2/pokemon");
@@ -10,7 +11,7 @@ const pokemon = await Promise.all(
   })
 );
 
-console.log(pokemon);
+console.log(pokemon[0].stats);
 ---
 
 <Layout title="The Astro Pokédex">
@@ -20,13 +21,28 @@ console.log(pokemon);
         pokemon?.map(
           (p: {
             name: string;
-            url: string;
+            stats: {
+              base_stat: number;
+              effort: number;
+              stat: {
+                name:
+                  | "hp"
+                  | "attack"
+                  | "defense"
+                  | "speed"
+                  | "special-attack"
+                  | "special-defense";
+                url: string;
+              };
+            }[];
             sprites: { front_default: string };
           }) => (
-            <li>
-              <img src={p.sprites.front_default} width="96px" height="96px" />
-              {p.name}, {p.url}
-            </li>
+            <Card
+              image={p.sprites.front_default}
+              title={p.name}
+              stats={p.stats}
+              href="#Todo"
+            />
           )
         )
       }
@@ -38,6 +54,7 @@ console.log(pokemon);
   main {
     margin: auto;
     max-width: 60ch;
+    padding: 0 1rem;
   }
   h1 {
     font-size: 3rem;
