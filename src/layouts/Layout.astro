@@ -18,7 +18,13 @@ const { title } = Astro.props;
   </head>
   <body>
     <header class="top-header">
-      <img class="logo" src="/pokemon_logo.svg" height="56px" width="152px" />
+      <img
+        alt="Pokemon logo"
+        class="logo"
+        src="/pokemon_logo.svg"
+        height="56px"
+        width="152px"
+      />
       <input class="search-bar" placeholder="Search any Pokémon" />
     </header>
     <slot />
