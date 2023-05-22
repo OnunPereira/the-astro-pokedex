@@ -23,12 +23,18 @@ console.log(pokemon);
     </p>
     <ul role="list" class="link-card-grid">
       {
-        pokemon?.map((p: { name: string; url: string }) => (
-          <li>
-            <img src={p.sprites.front_default} />
-            {p.name}, {p.url}
-          </li>
-        ))
+        pokemon?.map(
+          (p: {
+            name: string;
+            url: string;
+            sprites: { front_default: string };
+          }) => (
+            <li>
+              <img src={p.sprites.front_default} />
+              {p.name}, {p.url}
+            </li>
+          )
+        )
       }
     </ul>
   </main>
