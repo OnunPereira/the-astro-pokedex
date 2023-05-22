@@ -34,7 +34,7 @@ const { href, image, title, stats } = Astro.props;
 
 <li class="link-card">
   <a href={href}>
-    <img src={image} width="96px" height="96px" />
+    <img alt={"image of a " + title} src={image} width="96px" height="96px" />
     <h2>
       {title}
     </h2>
