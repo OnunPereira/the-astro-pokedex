@@ -17,25 +17,63 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
+    <header class="top-header">
+      <img class="logo" src="/pokemon_logo.svg" height="56px" width="152px" />
+      <input class="search-bar" placeholder="Search any Pokémon" />
+    </header>
     <slot />
   </body>
 </html>
+
 <style is:global>
   :root {
-    --accent: 124, 58, 237;
+    --primary: #ff0000;
+    --secondary: #cc0000;
+    --accent: #ffde00;
     --accent-gradient: linear-gradient(
-      45deg,
-      rgb(var(--accent)),
-      #da62c4 30%,
-      white 60%
+      to right,
+      var(--secondary),
+      var(--primary),
+      var(--secondary)
     );
   }
   html {
     font-family: system-ui, sans-serif;
     background-color: #f6f6f6;
   }
+  body {
+    margin: 0;
+  }
   code {
     font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
       DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+  }
+  .top-header {
+    position: sticky;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+    box-sizing: border-box;
+    padding: 0.5rem 4rem;
+    background-image: var(--accent-gradient);
+    height: 5rem;
+    width: 100%;
+  }
+  .logo {
+    /* rotate: -2deg; */
+    margin-top: -2px;
+  }
+  .search-bar {
+    display: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    outline: none;
+    border: 3px solid black;
+    border-radius: 1rem;
+    height: 2rem;
+    width: 512px;
+    padding: 0 1rem;
   }
 </style>
