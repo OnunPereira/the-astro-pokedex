@@ -1,4 +1,6 @@
 ---
+import Search from "../components/Search/Search.svelte";
+
 export interface Props {
   title: string;
 }
@@ -28,6 +30,9 @@ const { title } = Astro.props;
       <input class="search-bar" placeholder="Search any Pokémon" />
     </header>
     <slot />
+    <div class="fixed-search-box">
+      <Search client:load />
+    </div>
   </body>
 </html>
 
@@ -66,20 +71,35 @@ const { title } = Astro.props;
     height: 5rem;
     width: 100%;
   }
+  .top-header .search-bar {
+    display: none;
+  }
+
   .logo {
     /* rotate: -2deg; */
     margin-top: -2px;
   }
-  .search-bar {
-    display: none;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    outline: none;
-    border: 3px solid black;
-    border-radius: 1rem;
-    height: 2rem;
-    width: 512px;
-    padding: 0 1rem;
+
+  .fixed-search-box {
+    position: fixed;
+    bottom: 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    height: 4rem;
+    background-color: #ccc;
+    width: 100%;
+  }
+
+  @media only screen and (min-width: 600px) {
+    .fixed-search-box {
+      display: none;
+    }
+
+    .top-header .search-bar {
+      display: block;
+    }
   }
 </style>
