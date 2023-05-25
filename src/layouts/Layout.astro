@@ -19,17 +19,21 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
-    <header class="top-header">
-      <img
-        alt="Pokemon logo"
-        class="logo"
-        src="/pokemon_logo.svg"
-        height="56px"
-        width="152px"
-      />
-      <input class="search-bar" placeholder="Search any Pokémon" />
+    <header>
+      <div class="top-header">
+        <img
+          alt="Pokemon logo"
+          class="logo"
+          src="/pokemon_logo.svg"
+          height="56px"
+          width="152px"
+        />
+        <Search client:load />
+      </div>
     </header>
-    <slot />
+    <main>
+      <slot />
+    </main>
     <div class="fixed-search-box">
       <Search client:load />
     </div>
@@ -47,41 +51,61 @@ const { title } = Astro.props;
       var(--primary),
       var(--secondary)
     );
+    --page-max-width: 72rem;
+    --titanium-gradient: linear-gradient(
+      to bottom right,
+      #bbb,
+      #bfbfbf,
+      #c9c9c9,
+      #bfbfbf,
+      #bbb
+    );
   }
+
   html {
     font-family: system-ui, sans-serif;
     background-color: #f6f6f6;
   }
+
   body {
     margin: 0;
   }
-  code {
-    font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-      DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-  }
-  .top-header {
+
+  header {
     position: sticky;
+    top: 0;
+    z-index: 999;
+    background-image: var(--accent-gradient);
+    box-sizing: border-box;
+    padding: 0.5rem 1rem;
+  }
+
+  main {
+    margin: auto;
+    padding: 0 1rem;
+    max-width: var(--page-max-width);
+  }
+
+  .top-header {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 4rem;
-    box-sizing: border-box;
-    padding: 0.5rem 4rem;
-    background-image: var(--accent-gradient);
-    height: 5rem;
     width: 100%;
+    max-width: var(--page-max-width);
+    margin: auto;
   }
-  .top-header .search-bar {
+
+  .top-header > astro-island {
     display: none;
   }
 
   .logo {
-    /* rotate: -2deg; */
     margin-top: -2px;
   }
 
   .fixed-search-box {
-    position: fixed;
+    position: sticky;
     bottom: 0;
     box-sizing: border-box;
     display: flex;
@@ -89,11 +113,20 @@ const { title } = Astro.props;
     justify-content: center;
     padding: 0.5rem 1rem;
     height: 4rem;
-    background-color: #ccc;
+    background-image: var(--titanium-gradient);
     width: 100%;
+    box-shadow: 0 0 3rem 0rem #999;
   }
 
   @media only screen and (min-width: 600px) {
+    .top-header {
+      justify-content: space-between;
+    }
+
+    .top-header > astro-island {
+      display: contents;
+    }
+
     .fixed-search-box {
       display: none;
     }

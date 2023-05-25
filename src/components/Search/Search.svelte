@@ -52,7 +52,7 @@
   }
 
   .shake::before {
-    animation: shake 0.5s infinite;
+    animation: shake 0.8s infinite;
   }
 
   .wrapper {
@@ -63,7 +63,7 @@
     position: absolute;
     content: url(/pokeball.svg);
     top: 0.5rem;
-    left: 0.5rem;
+    left: 0.7rem;
     width: 1.5rem;
     height: 1.5rem;
   }

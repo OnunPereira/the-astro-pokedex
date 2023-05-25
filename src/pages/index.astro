@@ -15,52 +15,46 @@ console.log(pokemon[0].stats);
 ---
 
 <Layout title="The Astro Pokédex">
-  <main>
-    <ul role="list" class="link-card-grid">
-      {
-        pokemon?.map(
-          (p: {
-            name: string;
-            stats: {
-              base_stat: number;
-              effort: number;
-              stat: {
-                name:
-                  | "hp"
-                  | "attack"
-                  | "defense"
-                  | "speed"
-                  | "special-attack"
-                  | "special-defense";
-                url: string;
-              };
-            }[];
-            sprites: { front_default: string };
-          }) => (
-            <Card
-              image={p.sprites.front_default}
-              title={p.name}
-              stats={p.stats}
-              href="#Todo"
-            />
-          )
+  <ul role="list" class="link-card-grid">
+    {
+      pokemon?.map(
+        (p: {
+          name: string;
+          stats: {
+            base_stat: number;
+            effort: number;
+            stat: {
+              name:
+                | "hp"
+                | "attack"
+                | "defense"
+                | "speed"
+                | "special-attack"
+                | "special-defense";
+              url: string;
+            };
+          }[];
+          sprites: { front_default: string };
+        }) => (
+          <Card
+            image={p.sprites.front_default}
+            title={p.name}
+            stats={p.stats}
+            href="#Todo"
+          />
         )
-      }
-    </ul>
-  </main>
+      )
+    }
+  </ul>
 </Layout>
 
 <style>
-  main {
-    margin: auto;
-    max-width: 60ch;
-    padding: 0 1rem;
-  }
   h1 {
     font-size: 3rem;
     font-weight: 800;
     margin: 0;
   }
+
   .link-card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
